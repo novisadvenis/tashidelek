@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Froyo Machine!</title>
+	<style>
+		#machine {
+			float: left;
+			width: 40%;
+			border: 3px outset gray;
+		}
+
+		div#power>img {
+			float: left;
+		}
+
+		.btn {
+			float: left;
+			clear: right;
+		}
+
+	</style>
+</head>
+
+<body>
+	<h1>Froyo-maker 2000e</h1>
+	<div id="machine">
+		<div id="power">
+			<img src="img/power-off.png" class="power">
+		</div>
+		<button id="vanilla" class="btn">Vanilla</button><br>
+		<button id="chocolate" class="btn">Chocolate</button><br>
+		<button id="swirl" class="btn">Swirl</button><br>
+	</div>
+	<div id="conveyor_belt" style="float:left">
+		<img src="img/conveyor.png">
+	</div>
+	<script>
+		//Creating buttons and how it function
+		var powerButton = document.getElementById('power');
+
+		//defining the turn on and off variable
+		var isCurrentlyRunning = false;
+
+		powerButton.addEventListener('click', buttonClicked);
+
+
+		//if statment to comapre between turn on or off
+		function buttonClicked(event) {
+			var buttonVanilla = document.getElementById('vanilla');
+			var buttonChocolate = document.getElementById('chocolate');
+			var buttonSwirl = document.getElementById('swirl');
+			if (isCurrentlyRunning) {
+				//turn off
+				/*turn off picture */
+				event.target.src = 'img/power-off.png';
+				//creating Vanilla button
+				buttonVanilla.removeEventListener('click', flavourMaker);
+				//creating Chocolate button
+				buttonChocolate.removeEventListener('click', flavourMaker);
+				//creating Swirl button
+				buttonSwirl.removeEventListener('click', flavourMaker);
+			} else {
+				//turn on
+				event.target.src = 'img/power_on.png';
+				buttonVanilla.addEventListener('click', flavourMaker);
+				buttonChocolate.addEventListener('click', flavourMaker);
+				buttonSwirl.addEventListener('click', flavourMaker);
+			}
+			isCurrentlyRunning = !isCurrentlyRunning;
+		};
+
+		//creating functions and appendding images
+		// TODO: good names for functions, instead x, y, z
+		// TODO: Merge x, y and z into a single function.
+		// e is a MouseEvent (MDN) and has the button
+
+		function flavourMaker(event) {
+			var flavour = event.target.getAttribute('id');
+			var flavourImage = new Image(300, 400);
+			flavourImage.setAttribute('title','Your selected Flovour is '+flavour)
+			if (flavour == 'vanilla') {
+				flavourImage.src = 'img/vanilla.jpg';
+			} else if (flavour == 'chocolate') {
+				flavourImage.src = 'img/chocolate.jpg';
+			} else if (flavour == "swirl") {
+				flavourImage.src = 'img/swirl.jpg';
+			} else {
+
+			}
+			document.getElementById('conveyor_belt').appendChild(flavourImage);
+
+		};
+
+
+		/*var vanillaMaker = function(e) { 
+
+			//appending vanilla image
+
+			var conveyer = document.getElementById('conveyor_belt');
+			var vanillaImage = document.createElement('img'); // === new Image() 
+			vanillaImage.src = 'img/vanilla.jpg';
+			conveyer.appendChild(vanillaImage);
+		}
+		var chocolateMaker = function(e) {
+			var conveyer = document.getElementById('conveyor_belt');
+			var chocolateImage = document.createElement('img');
+			chocolateImage.src = 'img/chocolate.jpg';
+			conveyer.appendChild(chocolateImage);
+		}
+
+		var swirlMaker = function(e) {
+			var conveyer = document.getElementById('conveyor_belt');
+			var swirlImage = document.createElement('img');
+			swirlImage.src = 'img/swirl.jpg';
+			conveyer.appendChild(swirlImage);
+		}*/
+
+	</script>
+
+</body>
+
+</html>
